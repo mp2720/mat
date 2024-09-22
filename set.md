@@ -7,7 +7,7 @@
 
 ***Пустое множество*** $X$ - такое, что $\forall x: x \notin X$. Обозначим за $\varnothing$.
 
-***Равные множества*** $X$ и $Y$ - такие, что $X = Y \triangleq \forall x: (x \in X \iff y \in Y)$.
+***Равные множества*** $X$ и $Y$ - такие, что $X = Y \triangleq \forall x: (x \in X \iff x \in Y)$.
 Очевидно, что $\varnothing = \varnothing$.
 
 $X$ ***Подмножество*** $Y$ - $\forall x: (x \in X \implies x \in Y)$.

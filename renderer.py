@@ -76,6 +76,19 @@ def render_page(text: str, page_name: str) -> str:
                 margin: auto;
                 max-width: 1000px;
             }
+
+            td, th {
+                padding: 0.5em;
+            }
+
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            table {
+                margin: 0.5em;
+            }
         </style>
     </head>
     <body>

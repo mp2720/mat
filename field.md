@@ -1,6 +1,7 @@
 ## Группа
 Множество $G$ с заданной на нём бинарной операцией $\star : G \times G \rightarrow G$ называется
 ***группой*** $(G, \star)$, если выполнены аксиомы:
+
 1. ***ассоциативности***: $\forall x,y,z \in G: x \star (y \star z) = (x \star y) \star z$.
 2. ***нейтрального элемента***: $\exists n \in G: \forall x \in G: x \star n = x$.
 2. ***обратного элемента***: $\forall x \in G: \exists y \in G: x \star y = n$, где $n$ -
@@ -10,11 +11,13 @@
 ***коммутативности***: $\forall x, y \in G: x \star y = y \star x$.
 
 Примеры абелевых групп:
+
 * $(\mathbb{C}, +)$.
 * $(\mathbb{R} \setminus \{0\}, \cdot)$.
 
 ## Поле
 Пусть:
+
 * $F$ - множество.
 * $+: F \times F \rightarrow F$.
 * $\cdot: F \times F \rightarrow F$.

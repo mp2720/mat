@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import operator
 
 from functools import reduce
@@ -96,35 +97,40 @@ CONTENTS = {
     "set.md": "Теория множеств",
 }
 
-HTML_DIR_PATH = "html/"
+html_dir_path = "html/"
+if len(sys.argv) == 2:
+    html_dir_path = sys.argv[1]
+elif len(sys.argv) > 2:
+    print(f'usage: {sys.argv[0]} [html_dir_path]', file=sys.stderr)
+
+if html_dir_path[-1] != '/':
+    html_dir_path += '/'
 
 
-def render_repo():
-    if not os.path.exists(HTML_DIR_PATH):
-        os.mkdir(HTML_DIR_PATH)
+def render_entry(parent_path: str, entries: dict):
+    for entry_filename, entry in entries.items():
+        if type(entry) == tuple:
+            entry_name = entry[0]
+            children_entries = entry[1]
+            dir_path = parent_path + entry_filename + '/'
+            if not os.path.exists(html_dir_path + dir_path):
+                os.mkdir(html_dir_path + dir_path)
 
-    def render_entry(parent_path: str, entries: dict):
-        for entry_filename, entry in entries.items():
-            if type(entry) == tuple:
-                entry_name = entry[0]
-                children_entries = entry[1]
-                dir_path = parent_path + entry_filename + '/'
-                if not os.path.exists(HTML_DIR_PATH + dir_path):
-                    os.mkdir(HTML_DIR_PATH + dir_path)
+            render_entry(dir_path, children_entries)
+        else:
+            entry_name = entry
+            with open(parent_path + entry_filename, "r") as f:
+                text = f.read()
 
-                render_entry(dir_path, children_entries)
-            else:
-                entry_name = entry
-                with open(parent_path + entry_filename, "r") as f:
-                    text = f.read()
+            text = render_page(text, entry_name)
+            print(f"{parent_path+entry_filename} {entry_name}")
 
-                text = render_page(text, entry_name)
-                print(f"{entry_name} {parent_path+entry_filename} rendered")
+            with open(html_dir_path + parent_path + entry_filename + ".html", "w") as f:
+                f.write(text)
 
-                with open(HTML_DIR_PATH + parent_path + entry_filename + ".html", "w") as f:
-                    f.write(text)
 
-    render_entry("", CONTENTS)
+if not os.path.exists(html_dir_path):
+    os.mkdir(html_dir_path)
 
-render_repo()
+render_entry('', CONTENTS)
 
